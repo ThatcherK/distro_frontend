@@ -41,7 +41,7 @@ export default function SignIn() {
         username: formik.values.username,
         password: formik.values.password,
     }
-    console.log(payload)
+
     const handleSignIn = () => {
 
         instance
