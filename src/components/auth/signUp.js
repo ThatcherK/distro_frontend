@@ -8,10 +8,8 @@ import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import instance from '../../config/axiosConfig';
 
-console.log(instance)
 const useStyles = makeStyles((theme) => ({
     root: {
-        //   margin: theme.spacing(6, 0, 3),
         display: 'flex',
         flexDirection: 'column',
         width: '50%',
