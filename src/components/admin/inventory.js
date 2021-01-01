@@ -8,12 +8,14 @@ export default function Inventory(){
         instance.get('/inventory')
         .then((response)=>{
             console.log(response.data)
-            setInventory(response.data)
+            setInventory(response.data.inventory)
         })
     },[])
     return (
         <div>
-            
+            <ul>
+                {inventory.map((item) => <li>{item.name}</li>)}
+            </ul>
         </div>
     )
 }
