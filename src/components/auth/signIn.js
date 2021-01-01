@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import instance from '../../config/axiosConfig';
+import {authContext} from '../../context/authenticate'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function SignIn() {
+    const {setRole, setAuthToken} = useContext(authContext)
     const classes = useStyles()
 
     const formik = useFormik({
@@ -47,7 +49,11 @@ export default function SignIn() {
         instance
             .post('/login', payload)
             .then((response) => {
-                console.log(response)
+                console.log(response.data)
+                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('role',response.data.user.role)
+                setRole(response.data.user.role)
+                setAuthToken(response.data.token)
             })
             .catch((error) => {
                 console.log(error.response.data)
@@ -55,7 +61,7 @@ export default function SignIn() {
     }
     return (
         <div>
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
                 <TextField
                     id="standard-basic"
                     label="Username"
