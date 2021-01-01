@@ -10,6 +10,7 @@ export default function AdminPage() {
             </div>
             <div>
                 <NavLink exact to="/">Dashboard</NavLink>
+                <NavLink exact to="/admin/register">Register Business</NavLink>
                 <NavLink to="/admin/inventory">Inventory</NavLink>
                 <NavLink to="/admin/staff">Staff</NavLink>
                 <NavLink to="/admin/invite">Invite Users</NavLink>
