@@ -14,8 +14,12 @@ export default function Inventory(){
     return (
         <div>
             <ul>
-                {inventory.map((item) => <li>{item.name}</li>)}
+                {inventory.map((item) =>(<div>
+                    <li>{item.name}</li>
+                    <button>Edit</button>
+                </div>) )}
             </ul>
+
         </div>
     )
 }

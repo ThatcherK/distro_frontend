@@ -24,7 +24,7 @@ export default function InviteUsers(){
         email: formik.values.email,
         role_id: formik.values.role_id,
     }
-    console.log(payload)
+    
     const handleInvite = () => {
 
         instance
