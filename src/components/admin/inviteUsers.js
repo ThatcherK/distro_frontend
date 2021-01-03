@@ -2,9 +2,34 @@ import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import instance from '../../config/axiosConfig'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function InviteUsers(){
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    input: {
+        margin: '10px',
+        width: '60%',
+    },
+    label: {
 
+    },
+    submitButton: {
+        margin: '10px',
+        width: '60%',
+        '&:hover': {
+            background: "#52796f",
+        },
+    }
+}));
+
+export default function InviteUsers() {
+    const classes = useStyles()
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -24,7 +49,7 @@ export default function InviteUsers(){
         email: formik.values.email,
         role_id: formik.values.role_id,
     }
-    
+
     const handleInvite = () => {
 
         instance
@@ -38,20 +63,31 @@ export default function InviteUsers(){
     }
     return (
         <div>
-            <form onSubmit={formik.handleSubmit}>
-                <input 
-                placeholder="Enter email" 
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                 />
-                <select name="role_id" value={formik.values.role_id} onChange={formik.handleChange} >
-					<option value="">Role</option>
-					<option value={2} >Transport Manager</option>
-					<option value={3}>Driver</option>
-					<option value={4}>Store Manager</option>
-				</select>
-                <button type="submit">Submit</button>
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
+                <TextField
+                    variant="outlined"
+                    label="Email"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    className={classes.input}
+                />
+                <TextField
+                    id="standard-select"
+                    select
+                    label="Role"
+                    variant="outlined"
+                    name="role_id"
+                    value={formik.values.role_id}
+                    onChange={formik.handleChange}
+                    className={classes.input}
+                >
+                   
+                    <option value={2} >Transport Manager</option>
+                    <option value={3}>Driver</option>
+                    <option value={4}>Store Manager</option>
+                </TextField>
+                <Button variant="outlined" type="submit" className={classes.submitButton}>Submit</Button>
             </form>
         </div>
     )
