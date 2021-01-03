@@ -12,13 +12,29 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        width: '50%',
+        width: '100%',
+        
 
     },
     input: {
         marginBottom: '10px',
         marginRight: theme.spacing(1),
+        color: '#cad2c5',
+        borderColor: '#84a98c',
+        '&:hover': {
+            color: "#52796f",
+         },
     },
+    label: {
+        color: '#cad2c5'
+    },
+    submitButton: {
+        color: '#cad2c5',
+        borderColor: '#cad2c5',
+        '&:hover': {
+            background: "#52796f",
+         },
+    }
 }));
 
 export default function SignUp() {
@@ -63,7 +79,7 @@ export default function SignUp() {
     }
     return (
         <div>
-            <form className={classes.root} noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
+            <form className={classes.root} autoComplete="off" onSubmit={formik.handleSubmit}>
                 <TextField
                     id="standard-basic"
                     label="Username"
@@ -71,6 +87,12 @@ export default function SignUp() {
                     name="username"
                     onChange={formik.handleChange}
                     value={formik.values.username}
+                    InputProps={{
+                        className: classes.input
+                      }}
+                    InputLabelProps={{
+                        className: classes.label
+                    }}
 
                 />
                 <TextField
@@ -81,6 +103,12 @@ export default function SignUp() {
                     name="password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
+                    InputProps={{
+                        className: classes.input
+                      }}
+                    InputLabelProps={{
+                        className: classes.label
+                    }}
                 />
                 <TextField
                     id="standard-basic"
@@ -90,6 +118,12 @@ export default function SignUp() {
                     className={classes.input}
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
+                    InputProps={{
+                        className: classes.input
+                      }}
+                    InputLabelProps={{
+                        className: classes.label
+                    }}
                 />
                 <TextField
                     id="standard-basic"
@@ -98,24 +132,33 @@ export default function SignUp() {
                     name="inviteCode"
                     value={formik.values.inviteCode}
                     onChange={formik.handleChange}
+                    InputProps={{
+                        className: classes.input
+                      }}
+                    InputLabelProps={{
+                        className: classes.label
+                    }}
                 />
-                <InputLabel htmlFor="age-native-simple">Company</InputLabel>
+                <InputLabel className={classes.label} htmlFor="age-native-simple">Company</InputLabel>
                 <Select
                     native
-                    value={'company'}
-                    onChange={''}
+                    value={''}
+                    onChange={formik.handleChange}
                     inputProps={{
                         name: 'business',
                         id: 'age-native-simple',
+                        className: classes.input,
                     }}
                     className={classes.input}
+                    label = "Company"
+            
                 >
                     <option aria-label="None" value="" />
                     <option value={10}>Ten</option>
                     <option value={20}>Twenty</option>
                     <option value={30}>Thirty</option>
                 </Select>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" variant="outlined" className={classes.submitButton}>Submit</Button>
             </form>
         </div>
     )

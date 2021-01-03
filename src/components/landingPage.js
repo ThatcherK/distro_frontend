@@ -5,11 +5,18 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import { authContext } from '../context/authenticate';
 import AdminPage from './dashboards/adminPage'
+import { Redirect } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 
     button: {
         width: 'fit-content',
-        padding: '5px'
+        borderColor: '#cad2c5',
+        margin: '20px',
+        padding: '8px',
+        color: '#cad2c5',
+        '&:hover': {
+            background: "#52796f",
+         },
     },
 }));
 export default function LandingPage() {
@@ -44,13 +51,17 @@ export default function LandingPage() {
                 return <div />;
         }
     };
+   
     return (
 
         <div className="landingPageContainer">
+           
             {(isLoggedIn || localStorageToken) ? (
                 showPage(localStorageRole)
             ) : (
                     <div>
+                         <h1>DISTRO IQ</h1>
+                        <p>Let's do the heavy lifting for you!</p>
                         <Button variant="outlined" onClick={handleSignUpClick} className={classes.button}>Sign up</Button>
                         <Button variant="outlined" onClick={handleSignInClick} className={classes.button}>Sign in</Button>
                         {showSignUp ? <SignUp /> : null}
