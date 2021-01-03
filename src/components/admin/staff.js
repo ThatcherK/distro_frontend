@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,9 +9,11 @@ import EditStaffForm from './editStaffForm';
 
 const useStyles = makeStyles({
     root: {
+        display: 'flex',
         minWidth: 275,
+        width: '20%',
     },
-   
+
     title: {
         fontSize: 14,
     },
@@ -28,7 +30,6 @@ export default function OutlinedCard() {
     useEffect(() => {
         instance.get('/staff')
             .then((response) => {
-                console.log(response.data)
                 setStaffData(response.data.staff)
             })
     }, [])
@@ -39,23 +40,20 @@ export default function OutlinedCard() {
     const modalClose = () => {
         setIsOpen(false)
     }
-    const bull = <span className={classes.bullet}>•</span>;
 
     return (
         <div>
             {staffData.map((user) => (
                 <Card className={classes.root} variant="outlined">
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        {user.username}
-                    </Typography>
-                    <Button size="small" onClick={() => openModal(user)}>Edit</Button>
-                    <EditStaffForm isOpen={isOpen} modalClose={modalClose} user={user} />
-                </CardContent>
+                    <CardContent>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            {user.username}
+                        </Typography>
+                        <Button size="small" onClick={() => openModal(user)}>Edit</Button>
+                        <EditStaffForm isOpen={isOpen} modalClose={modalClose} user={user} />
+                    </CardContent>
                 </Card>
             ))}
         </div>
-            
-       
     );
 }

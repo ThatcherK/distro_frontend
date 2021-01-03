@@ -82,7 +82,6 @@ export default function InviteUsers() {
                     onChange={formik.handleChange}
                     className={classes.input}
                 >
-                   
                     <option value={2} >Transport Manager</option>
                     <option value={3}>Driver</option>
                     <option value={4}>Store Manager</option>
