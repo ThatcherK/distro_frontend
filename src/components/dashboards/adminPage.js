@@ -51,7 +51,9 @@ const useStyles = makeStyles((theme) => ({
             flexShrink: 0,
         },
     },
+  
     appBar: {
+        backgroundColor: '#2f3e46',
         [theme.breakpoints.up('sm')]: {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
@@ -98,6 +100,9 @@ function ResponsiveDrawer(props) {
                 <ListItem button component={NavLink} to="/admin/inventory">
                     <ListItemText primary={'Inventory'} />
                 </ListItem>
+                <ListItem button component={NavLink} to="/admin/orders">
+                    <ListItemText primary={'Orders'} />
+                </ListItem>
                 <ListItem button component={NavLink} to="/admin/staff">
                     <ListItemText primary={'Staff'} />
                 </ListItem>
@@ -123,13 +128,12 @@ function ResponsiveDrawer(props) {
                         className={classes.menuButton}
                     >
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" className={classes.title} noWrap>
                         DistroIQ
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <Drawer
                         container={container}
@@ -161,7 +165,7 @@ function ResponsiveDrawer(props) {
             </nav>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <AdminNavigation/>
+                <AdminNavigation />
             </main>
         </div>
     );
