@@ -139,25 +139,6 @@ export default function SignUp() {
                         className: classes.label
                     }}
                 />
-                <InputLabel className={classes.label} htmlFor="age-native-simple">Company</InputLabel>
-                <Select
-                    native
-                    value={''}
-                    onChange={formik.handleChange}
-                    inputProps={{
-                        name: 'business',
-                        id: 'age-native-simple',
-                        className: classes.input,
-                    }}
-                    className={classes.input}
-                    label = "Company"
-            
-                >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
-                </Select>
                 <Button type="submit" variant="outlined" className={classes.submitButton}>Submit</Button>
             </form>
         </div>

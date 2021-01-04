@@ -30,6 +30,7 @@ export default function OutlinedCard() {
     useEffect(() => {
         instance.get('/staff')
             .then((response) => {
+                console.log(response.data)
                 setStaffData(response.data.staff)
             })
     }, [])
@@ -49,6 +50,7 @@ export default function OutlinedCard() {
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
                             {user.username}
                         </Typography>
+                        <Typography>Role: {user.role.name}</Typography>
                         <Button size="small" onClick={() => openModal(user)}>Edit</Button>
                         <EditStaffForm isOpen={isOpen} modalClose={modalClose} user={user} />
                     </CardContent>
