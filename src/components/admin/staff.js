@@ -30,12 +30,13 @@ export default function OutlinedCard() {
     useEffect(() => {
         instance.get('/staff')
             .then((response) => {
-                console.log(response.data)
                 setStaffData(response.data.staff)
+            })
+            .catch((error) => {
+                console.log(error)
             })
     }, [])
     const openModal = (user) => {
-        console.log(user)
         setIsOpen(true)
     }
     const modalClose = () => {

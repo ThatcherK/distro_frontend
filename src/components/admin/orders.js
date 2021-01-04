@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import instance from '../../config/axiosConfig'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Orders(){
+export default function Orders() {
     const [orders, setOrders] = useState([])
     const [isOpen, setModalOpen] = useState(false)
     const classes = useStyles();
@@ -32,32 +32,32 @@ export default function Orders(){
             .then((response) => {
                 console.log(response.data)
                 setOrders(response.data.orders)
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.log(error.message)
             })
     }, [])
-    const handleModalOpen = ()=>{
+    const handleModalOpen = () => {
         setModalOpen(true)
     }
-    const handleModalClose = ()=>{
+    const handleModalClose = () => {
         setModalOpen(false)
     }
     return (
         <div>
-        {orders.map((order) => (
-            <Card className={classes.root} variant="outlined">
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                       {order.name}({order.quantity})
+            {orders.map((order) => (
+                <Card className={classes.root} variant="outlined">
+                    <CardContent>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            {order.name}({order.quantity})
                     </Typography>
-                    <Typography>Customer name: {order.customer}</Typography>
-                    <Typography>Date ordered: {order.order_date}</Typography>
-                    <Typography>Status: {order.status}</Typography>
-                    <Button size="small" onClick={handleModalOpen}>Assign</Button>
-                    <AssignOrderForm isOpen={isOpen} modalClose={handleModalClose} order={order}/>
-                </CardContent>
-            </Card>
-        ))}
-    </div>
+                        <Typography>Customer name: {order.customer}</Typography>
+                        <Typography>Date ordered: {order.order_date}</Typography>
+                        <Typography>Status: {order.status}</Typography>
+                        <Button size="small" onClick={handleModalOpen}>Assign</Button>
+                        <AssignOrderForm isOpen={isOpen} modalClose={handleModalClose} order={order} />
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
     )
 }

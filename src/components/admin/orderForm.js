@@ -5,14 +5,8 @@ import * as Yup from 'yup';
 import instance from '../../config/axiosConfig'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-
-});
 
 export default function OrderForm(props) {
-    const classes = useStyles()
     const formik = useFormik({
         initialValues: {
             quantity: '',
@@ -37,7 +31,6 @@ export default function OrderForm(props) {
     }
 
     const handleOrder = () => {
-        console.log(payload)
         instance
             .post('/orders', payload)
             .then((response) => {

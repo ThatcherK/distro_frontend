@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
             flexShrink: 0,
         },
     },
-  
+
     appBar: {
         backgroundColor: '#2f3e46',
         [theme.breakpoints.up('sm')]: {

@@ -7,8 +7,7 @@ export default function MainNavigation() {
 	return (
 		<Switch>
 			<Route exact path="/" component={LandingPage} />
-            <Route path = "/admin" component={AdminPage}/>
-
+			<Route path="/admin" component={AdminPage} />
 		</Switch>
 	);
 }

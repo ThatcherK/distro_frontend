@@ -61,7 +61,7 @@ export default function RegisterBusiness() {
                     value={formik.values.name}
                     InputProps={{
                         className: classes.input
-                      }}
+                    }}
                     InputLabelProps={{
                         className: classes.label
                     }}

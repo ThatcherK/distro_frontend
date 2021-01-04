@@ -9,11 +9,9 @@ import { authContext } from '../../context/authenticate'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        //   margin: theme.spacing(6, 0, 3),
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-
     },
     input: {
         marginBottom: '10px',
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: '#cad2c5',
         '&:hover': {
             background: "#52796f",
-         },
+        },
     }
 }));
 export default function SignIn() {
@@ -60,7 +58,6 @@ export default function SignIn() {
     }
 
     const handleSignIn = () => {
-
         instance
             .post('/login', payload)
             .then((response) => {

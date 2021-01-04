@@ -18,7 +18,7 @@ export default function AddItemForm(props) {
         validationSchema: Yup.object({
             name: Yup.string().required('Required!'),
             quantity: Yup.number().required('Required!'),
-            price:Yup.number().required('Required')
+            price: Yup.number().required('Required')
         }),
         onSubmit: (values, onSubmitProps) => {
             handleAddItem();
@@ -28,14 +28,13 @@ export default function AddItemForm(props) {
     useEffect(() => {
         ReactModal.setAppElement('body')
     })
-     const payload = {
+    const payload = {
         name: formik.values.name,
         quantity: formik.values.quantity,
         price: formik.values.price
     }
-   
+
     const handleAddItem = () => {
-        console.log(payload)
         instance
             .post('/inventory', payload)
             .then((response) => {
@@ -79,8 +78,8 @@ export default function AddItemForm(props) {
             >
                 <form onSubmit={formik.handleSubmit}>
                     <TextField value={formik.values.name} name="name" onChange={formik.handleChange} label="Name" />
-                    <TextField type="number" value={formik.values.quantity} name="quantity" onChange={formik.handleChange} label="Quantity"/>
-                    <TextField type="number" value={formik.values.price} name="price" onChange={formik.handleChange} label="Price"/>
+                    <TextField type="number" value={formik.values.quantity} name="quantity" onChange={formik.handleChange} label="Quantity" />
+                    <TextField type="number" value={formik.values.price} name="price" onChange={formik.handleChange} label="Price" />
                     <Button type="submit">Submit</Button>
                 </form>
 

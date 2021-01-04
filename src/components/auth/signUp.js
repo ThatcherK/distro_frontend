@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        
+
 
     },
     input: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: '#84a98c',
         '&:hover': {
             color: "#52796f",
-         },
+        },
     },
     label: {
         color: '#cad2c5'
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: '#cad2c5',
         '&:hover': {
             background: "#52796f",
-         },
+        },
     }
 }));
 
@@ -89,7 +89,7 @@ export default function SignUp() {
                     value={formik.values.username}
                     InputProps={{
                         className: classes.input
-                      }}
+                    }}
                     InputLabelProps={{
                         className: classes.label
                     }}
@@ -105,7 +105,7 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     InputProps={{
                         className: classes.input
-                      }}
+                    }}
                     InputLabelProps={{
                         className: classes.label
                     }}
@@ -120,7 +120,7 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     InputProps={{
                         className: classes.input
-                      }}
+                    }}
                     InputLabelProps={{
                         className: classes.label
                     }}
@@ -134,7 +134,7 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     InputProps={{
                         className: classes.input
-                      }}
+                    }}
                     InputLabelProps={{
                         className: classes.label
                     }}

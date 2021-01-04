@@ -33,27 +33,29 @@ export default function Inventory() {
     useEffect(() => {
         instance.get('/inventory')
             .then((response) => {
-                console.log(response.data)
                 setInventory(response.data.inventory)
+            })
+            .catch((error) => {
+                console.log(error)
             })
     }, [])
 
-    const handleModalOpen = ()=>{
+    const handleModalOpen = () => {
         setIsOpen(true)
     }
-    const modalClose = ()=>{
+    const modalClose = () => {
         setIsOpen(false)
     }
-    const handleEditModalOpen = ()=>{
+    const handleEditModalOpen = () => {
         setIsEditOpen(true)
     }
-    const handleEditModalClose = ()=>{
+    const handleEditModalClose = () => {
         setIsEditOpen(false)
     }
-    const handleOrderModalOpen = ()=>{
+    const handleOrderModalOpen = () => {
         setIsOrderOpen(true)
     }
-    const handleOrderModalClose = ()=>{
+    const handleOrderModalClose = () => {
         setIsOrderOpen(false)
     }
     return (
@@ -67,13 +69,13 @@ export default function Inventory() {
                             {item.name}
                         </Typography>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                           Stock: {item.quantity}
+                            Stock: {item.quantity}
                         </Typography>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                           UGX{item.price}
+                            UGX{item.price}
                         </Typography>
                         <Button size="small" onClick={handleEditModalOpen}>Edit</Button>
-                        <EditInventoryForm isOpen={isEditOpen} modalClose={handleEditModalClose} item={item}/>
+                        <EditInventoryForm isOpen={isEditOpen} modalClose={handleEditModalClose} item={item} />
                         <Button onClick={handleOrderModalOpen}>Order</Button>
                         <OrderForm isOpen={isOrderOpen} modalClose={handleOrderModalClose} item={item} />
                     </CardContent>
