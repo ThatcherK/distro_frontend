@@ -5,9 +5,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Add, Edit } from '@material-ui/icons';
 import AddItemForm from './addItemForm';
 import EditInventoryForm from './editInventoryForm';
+import OrderForm from './orderForm'
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +28,7 @@ export default function Inventory() {
     const [inventory, setInventory] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [isEditOpen, setIsEditOpen] = useState(false)
+    const [isOrderOpen, setIsOrderOpen] = useState(false)
     const classes = useStyles();
     useEffect(() => {
         instance.get('/inventory')
@@ -49,6 +50,12 @@ export default function Inventory() {
     const handleEditModalClose = ()=>{
         setIsEditOpen(false)
     }
+    const handleOrderModalOpen = ()=>{
+        setIsOrderOpen(true)
+    }
+    const handleOrderModalClose = ()=>{
+        setIsOrderOpen(false)
+    }
     return (
         <div>
             <Button onClick={handleModalOpen}>Add Item</Button>
@@ -67,6 +74,8 @@ export default function Inventory() {
                         </Typography>
                         <Button size="small" onClick={handleEditModalOpen}>Edit</Button>
                         <EditInventoryForm isOpen={isEditOpen} modalClose={handleEditModalClose} item={item}/>
+                        <Button onClick={handleOrderModalOpen}>Order</Button>
+                        <OrderForm isOpen={isOrderOpen} modalClose={handleOrderModalClose} item={item} />
                     </CardContent>
                 </Card>
             ))}

@@ -11,21 +11,17 @@ const useStyles = makeStyles({
 
 });
 
-export default function EditInventoryForm(props) {
+export default function OrderForm(props) {
     const classes = useStyles()
     const formik = useFormik({
         initialValues: {
-            name: '',
             quantity: '',
-            price: '',
         },
         validationSchema: Yup.object({
-            name: Yup.string().required('Required!'),
             quantity: Yup.number().required('Required!'),
-            price: Yup.number().required('Required!'),
         }),
         onSubmit: (values, onSubmitProps) => {
-            handleEdit();
+            handleOrder();
             onSubmitProps.resetForm()
         }
     });
@@ -35,15 +31,15 @@ export default function EditInventoryForm(props) {
     })
 
     const payload = {
-        name: formik.values.name,
+        inventory_id: props.item.id,
         quantity: formik.values.quantity,
-        price: formik.values.price
+        customer_id: 1,
     }
 
-    const handleEdit = () => {
+    const handleOrder = () => {
         console.log(payload)
         instance
-            .patch(`/inventory/${props.item.id}`, payload)
+            .post('/orders', payload)
             .then((response) => {
                 console.log(response.data)
             })
@@ -56,7 +52,7 @@ export default function EditInventoryForm(props) {
         <div>
             <ReactModal
                 isOpen={props.isOpen}
-                contentLabel="Edit Inventory details"
+                contentLabel="Make an order"
                 onRequestClose={props.modalClose}
                 style={{
                     overlay: {
@@ -85,9 +81,13 @@ export default function EditInventoryForm(props) {
                 }}
             >
                 <form onSubmit={formik.handleSubmit}>
-                    <TextField value={formik.values.name} label="Name" name="name" onChange={formik.handleChange} />
-                    <TextField value={formik.values.quantity} label="Quantity" name="quantity" onChange={formik.handleChange} />
-                    <TextField value={formik.values.price} label="Price" name="price" onChange={formik.handleChange} />
+                    <TextField
+                        value={formik.values.quantity}
+                        label="Quantity"
+                        name="quantity"
+                        type="number"
+                        onChange={formik.handleChange}
+                    />
                     <Button type="submit">Submit</Button>
                 </form>
             </ReactModal>

@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import AssignOrderForm from './assignOrderForm';
 
 const useStyles = makeStyles({
     root: {
@@ -23,7 +24,9 @@ const useStyles = makeStyles({
 
 export default function Orders(){
     const [orders, setOrders] = useState([])
+    const [isOpen, setModalOpen] = useState(false)
     const classes = useStyles();
+
     useEffect(() => {
         instance.get('/orders')
             .then((response) => {
@@ -33,18 +36,25 @@ export default function Orders(){
                 console.log(error.message)
             })
     }, [])
+    const handleModalOpen = ()=>{
+        setModalOpen(true)
+    }
+    const handleModalClose = ()=>{
+        setModalOpen(false)
+    }
     return (
         <div>
         {orders.map((order) => (
             <Card className={classes.root} variant="outlined">
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                      {order.quantity} : {order.name}
+                       {order.name}({order.quantity})
                     </Typography>
                     <Typography>Customer name: {order.customer}</Typography>
                     <Typography>Date ordered: {order.order_date}</Typography>
                     <Typography>Status: {order.status}</Typography>
-                    <Button size="small">Edit</Button>
+                    <Button size="small" onClick={handleModalOpen}>Assign</Button>
+                    <AssignOrderForm isOpen={isOpen} modalClose={handleModalClose} order={order}/>
                 </CardContent>
             </Card>
         ))}

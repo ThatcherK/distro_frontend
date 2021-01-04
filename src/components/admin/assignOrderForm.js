@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactModal from 'react-modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,42 +8,41 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-
+    selectInput: {
+        width: '200px',
+    }
 });
-
-export default function EditInventoryForm(props) {
+export default function AssignOrderForm(props) {
     const classes = useStyles()
+    const [transporters, setTransporters] = useState([])
     const formik = useFormik({
         initialValues: {
-            name: '',
-            quantity: '',
-            price: '',
+            transporter_id: '',
         },
         validationSchema: Yup.object({
-            name: Yup.string().required('Required!'),
-            quantity: Yup.number().required('Required!'),
-            price: Yup.number().required('Required!'),
+            transporter_id: Yup.number().required('Required!'),
         }),
         onSubmit: (values, onSubmitProps) => {
-            handleEdit();
+            handleOrderAssignment();
             onSubmitProps.resetForm()
         }
     });
-
     useEffect(() => {
         ReactModal.setAppElement('body')
-    })
+        instance.get('/staff')
+            .then((response) => {
+                let staff = response.data.staff
+                setTransporters(staff.filter((person) => person.role.name === "driver"))
+            })
+    }, [])
 
     const payload = {
-        name: formik.values.name,
-        quantity: formik.values.quantity,
-        price: formik.values.price
+        transporter_id: formik.values.transporter_id,
     }
 
-    const handleEdit = () => {
-        console.log(payload)
+    const handleOrderAssignment = () => {
         instance
-            .patch(`/inventory/${props.item.id}`, payload)
+            .patch(`/orders/${props.order.id}`, payload)
             .then((response) => {
                 console.log(response.data)
             })
@@ -51,12 +50,11 @@ export default function EditInventoryForm(props) {
                 console.log(error.response.data)
             })
     }
-
     return (
         <div>
             <ReactModal
                 isOpen={props.isOpen}
-                contentLabel="Edit Inventory details"
+                contentLabel="Edit Order details"
                 onRequestClose={props.modalClose}
                 style={{
                     overlay: {
@@ -85,13 +83,20 @@ export default function EditInventoryForm(props) {
                 }}
             >
                 <form onSubmit={formik.handleSubmit}>
-                    <TextField value={formik.values.name} label="Name" name="name" onChange={formik.handleChange} />
-                    <TextField value={formik.values.quantity} label="Quantity" name="quantity" onChange={formik.handleChange} />
-                    <TextField value={formik.values.price} label="Price" name="price" onChange={formik.handleChange} />
+                    {transporters.map((transporter) => (
+                        <TextField
+                            select
+                            value={formik.values.transporter_id}
+                            label="Transporter"
+                            name="transporter_id"
+                            onChange={formik.handleChange}
+                            className={classes.selectInput} >
+                            <option value={transporter.id} >{transporter.username}</option>
+                        </TextField>
+                    ))}
                     <Button type="submit">Submit</Button>
                 </form>
             </ReactModal>
         </div>
     )
-
 }
