@@ -5,47 +5,40 @@ import * as Yup from 'yup';
 import instance from '../../config/axiosConfig'
 
 export default function EditStaffForm(props){
-    const [username, setUsername] = useState(props.user.username)
-    const [role_id, setRoleId] = useState(props.user.role.id)
-    // const formik = useFormik({
-    //     initialValues: {
-    //         username: props.user.username,
-    //         role_id: props.user.role.id,
-    //     },
-    //     validationSchema: Yup.object({
-    //         username: Yup.string().required('Required!'),
-    //         role_id: Yup.number().required('Required!'),
-    //     }),
-    //     onSubmit: (values, onSubmitProps) => {
-    //         handleEdit();
-    //         onSubmitProps.resetForm()
-    //     }
-    // });
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            role_id: '',
+        },
+        validationSchema: Yup.object({
+            username: Yup.string().required('Required!'),
+            role_id: Yup.number().required('Required!'),
+        }),
+        onSubmit: (values, onSubmitProps) => {
+            handleEdit();
+            onSubmitProps.resetForm()
+        }
+    });
     
     useEffect(()=>{
         ReactModal.setAppElement('body')
     })
-    const handleUsernameChange = (event)=>{
-       setUsername(event.target.value)
+
+    const payload = {
+        username: formik.values.username,
+        role_id: formik.values.role_id,
     }
-    const handleRoleChange = (event)=>{
-        setRoleId(event.target.value)
-    }
-    // const payload = {
-    //     username: formik.values.username,
-    //     role_id: formik.values.role_id,
-    // }
    
     const handleEdit = () => {
-        // console.log(payload)
-        // instance
-        //     .post(`/staff/${props.user.id}`, payload)
-        //     .then((response) => {
-        //         console.log(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error.response.data)
-        //     })
+        console.log(payload)
+        instance
+            .patch(`/staff/${props.user.id}`, payload)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error.response.data)
+            })
     }
     return (
         <div>
@@ -79,15 +72,15 @@ export default function EditStaffForm(props){
 				}
 			}}
 		>
-            <form>
-                <input value={username} name="username" onChange={(event)=>handleUsernameChange(event)}/>
-                <select name="role_id" value={role_id} onChange={(event)=>handleRoleChange(event)} >
+            <form onSubmit={formik.handleSubmit}>
+                <input value={formik.values.username} name="username" onChange={formik.handleChange}/>
+                <select name="role_id" value={formik.values.role_id} onChange={formik.handleChange} >
 					<option value="">Role</option>
 					<option value={2} >Transport Manager</option>
 					<option value={3}>Driver</option>
 					<option value={4}>Store Manager</option>
 				</select>
-                <button type="submit" onClick={handleEdit}>Submit</button>
+                <button type="submit">Submit</button>
             </form>
 		
 		</ReactModal>

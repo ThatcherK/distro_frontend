@@ -5,8 +5,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Add } from '@material-ui/icons';
+import { Add, Edit } from '@material-ui/icons';
 import AddItemForm from './addItemForm';
+import EditInventoryForm from './editInventoryForm';
 
 const useStyles = makeStyles({
     root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 export default function Inventory() {
     const [inventory, setInventory] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [isEditOpen, setIsEditOpen] = useState(false)
     const classes = useStyles();
     useEffect(() => {
         instance.get('/inventory')
@@ -40,6 +42,12 @@ export default function Inventory() {
     }
     const modalClose = ()=>{
         setIsOpen(false)
+    }
+    const handleEditModalOpen = ()=>{
+        setIsEditOpen(true)
+    }
+    const handleEditModalClose = ()=>{
+        setIsEditOpen(false)
     }
     return (
         <div>
@@ -57,7 +65,8 @@ export default function Inventory() {
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
                            UGX{item.price}
                         </Typography>
-                        <Button size="small">Edit</Button>
+                        <Button size="small" onClick={handleEditModalOpen}>Edit</Button>
+                        <EditInventoryForm isOpen={isEditOpen} modalClose={handleEditModalClose} item={item}/>
                     </CardContent>
                 </Card>
             ))}
